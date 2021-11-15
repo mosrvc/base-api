@@ -1,0 +1,9 @@
+node_modules
+.env
+.env.*
+!.env.example
+.idea
+*.zip
+claudia.json
+storage/logs/*
+src/logs/*

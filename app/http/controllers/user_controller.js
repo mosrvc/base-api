@@ -21,6 +21,7 @@ const index = async (req, res, next) => {
 
 const show = (req, res, next) => {
   const id = req.params.id
+
   res.send({
     data: {
       id: id
@@ -28,8 +29,9 @@ const show = (req, res, next) => {
   })
 }
 
-const create = (req, res, next) => {
-  res.send(req.body)
+const create = async (req, res, next) => {
+  const user = await userRepository.store(req.body)
+  res.send(new UserResource(user).exec())
 }
 
 const update = (req, res, next) => {

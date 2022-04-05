@@ -7,7 +7,8 @@ class UserResource extends BaseResource {
       username: this.username,
       email: this.email,
       name: this.name,
-      phone: this.phone
+      phone: this.phone,
+      activation_code: this.activation_code,
     })
   }
 }

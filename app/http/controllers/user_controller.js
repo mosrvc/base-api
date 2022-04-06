@@ -19,14 +19,15 @@ const index = async (req, res, next) => {
   })))
 }
 
-const show = (req, res, next) => {
+const show = async (req, res, next) => {
   const id = req.params.id
-
-  res.send({
-    data: {
-      id: id
-    }
+  const data  = await userRepository.findOne({
+    uuid : id
   })
+  if(!data){
+    res.sendStatus(404)
+  }
+  res.send(new UserResource(data).exec())
 }
 
 const create = async (req, res, next) => {
@@ -34,8 +35,16 @@ const create = async (req, res, next) => {
   res.send(new UserResource(user).exec())
 }
 
-const update = (req, res, next) => {
-  res.send(req.body)
+const update = async (req, res, next) => {
+  const id = req.params.id
+  const data  = await userRepository.findOne({
+    uuid : id
+  })
+  if(!data){
+    res.sendStatus(404)
+  }
+  await userRepository.update(req.body, {uuid : id})
+  res.send(new UserResource(req.body).exec())
 }
 
 const destroy = (req, res, next) => {
